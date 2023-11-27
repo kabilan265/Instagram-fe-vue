@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  font-size: 15px;
+}
+body {
+  overflow-x: hidden;
+  width: 100vw;
+  background-color: #fff;
+}
+@layer components{
+  .form-wrap{
+    @apply text-center  shadow-none border-none md:shadow md:border md:border-solid md:border-others-loginbor 
+  }
+  .input-box{
+    @apply outline outline-1 outline-black w-full block  p-[10px] py-[4px] pb-0 pt-0 text-[12px] h-10 bg-white-aggresive input-border rounded-[1.5px]
+  }
+  .pass-toggler{
+    @apply absolute top-1/2 -translate-y-1/2 right-2 text-xs text-black font-semibold hover:opacity-50 cursor-pointer
+  }
+}
+.input-border
+{
+  border-color: hsla(0,0%,80%,.144);
+}
+.input-span{
+  color: rgb(115, 115, 115);
+  left: 10px;
+  top: 50%;
+  transform:scale(1) translateY(-50%);
+  transition: all 0.1s;
+  font-size: 12px;
+}
+.input-span-active{
+  top: -4px;
+  left: 4px;
+  transform: scale(0.8);
+}
+button[disabled]
+{
+  cursor: not-allowed;
+  background-color: rgb(0, 149, 246);
+}
+ion-icon {
+  font-size: 20px;
+}
+.nav-items ion-icon{
+  font-size: 25px;
+}
+nav, .photo-tags{
+    border: 1px solid rgb(219,219,219);
+}
+.profile-stats{
+  border-top: 1px solid rgb(219,219,219);
+}
+header .profile-stats{
+  border-top: none;
+}
+nav img{
+  height: 25px;
+  width: 25px;
+  transition: all 0.2s;
+}
+.nav-items:hover img , .nav-items:hover ion-icon{
+  scale: 1.1;
+}
+.profile-header{
+  grid-template-columns: 0.3fr 0.7fr;
+}
+.photo-tags ion-icon{
+ color: rgb(142, 142, 142);
+}
