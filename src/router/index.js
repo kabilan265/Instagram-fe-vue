@@ -14,10 +14,21 @@ const routes = [
     component: () => import('../components/signup/Signup.vue')
   },
   {
+    name: 'inbox',
+    path: '/inbox',
+    component: () => import('../components/inbox/Inbox.vue')
+  },
+  {
+    name: 'chat',
+    path: '/inbox/:id',
+    component: () => import('../components/chat/Chat.vue')
+  },
+  {
     name: 'profile',
     path: '/:userName',
     component: () => import('../components/profile/Profile.vue')
   },
+  
   {
     path: '/',
     redirect: '/login'

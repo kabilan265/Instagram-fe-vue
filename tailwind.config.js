@@ -8,6 +8,7 @@ module.exports = {
       'white': {
         'primary': 'rgb(255, 255, 255)',
         'aggresive': '#f8f8f8',
+        'msg':"#e0e0e0"
       },
       'warning': 'rgb(237, 73, 86)',
       'blue': {

@@ -134,18 +134,26 @@
             class="absolute top-1/2 -translate-y-1/2 right-2"
           ></ion-icon>
         </label>
-        <button
-          type="button"
-          class="block w-full rounded-lg bg-blue-aggresive text-white-primary p-1 mt-4"
-          :disabled="isDisabled"
-          @click="signup()"
-        >
-          Sign Up
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="block w-full rounded-lg bg-blue-primary h-[30px] hover:bg-blue-aggresive text-white-primary p-1 "
+            :disabled="isDisabled"
+            @click="signup()"
+          >
+           {{signUpText}}
+          </button>
+          <VueSpinnerIos
+            v-if="loginSpinner"
+            class="absolute top-1/2 -translate-y-1/2 right-1/2 transalte-x-1/2"
+            size="20"
+            color="white"
+          />
+        </div>
         <div v-if="errorMsg" class="text-warning">{{ errorMsg }}</div>
       </form>
     </div>
-    <div class="p-6 mt-4 form-wrap">
+    <div class="p-6 mt-2 form-wrap">
       <p>
         Don't have an account?<a
           href="#"

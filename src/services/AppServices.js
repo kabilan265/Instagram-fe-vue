@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:8090/'
+const BASE_URL = 'https://instagram-be-nodejs.onrender.com/'
 const appServices = {
   loginUser(data) {
     const url = BASE_URL + 'auth/login';
@@ -30,6 +30,18 @@ const appServices = {
     return axios.put(url, payload, {
       headers: headers
     });
+  },
+  fetchChats(){
+    const url = BASE_URL + 'chat';
+    return axios.get(url);
+  },
+  getAllMessages(id){
+    const url = BASE_URL + 'message/'+id;
+    return axios.get(url);
+  },
+  sendMessage(data){
+    const url = BASE_URL + 'message/';
+    return axios.post(url, data);
   }
 }
 

@@ -9,9 +9,16 @@ import {
   helpers,
   between,
 } from "@vuelidate/validators";
-
+import {
+  VueSpinnerIos,
+  // ...
+} from "vue3-spinners";
 export default {
   name: "signup",
+  components: {
+    VueSpinnerIos,
+    // ...
+  },
   setup() {
     return { v$: useVuelidate() };
   },
@@ -25,6 +32,8 @@ export default {
       },
       passToggler: "SHOW",
       errorMsg: "",
+      signUpText: "Sign Up",
+      loginSpinner: false,
     };
   },
   computed: {
@@ -101,6 +110,8 @@ export default {
       if (this.errorMsg) {
         return;
       }
+      this.signUpText = "";
+      this.loginSpinner = true;
       appServices
         .registerUser(this.details)
         .then((res) => {
@@ -108,7 +119,11 @@ export default {
           this.$router.push(`/${this.details.userName}`);
         })
         .catch((err) => {
-          this.errorMsg = err.response.data.error;
+          this.errorMsg =
+            err.response?.data?.error ||
+            "Server is down please try again later";
+          this.loginSpinner = false;
+          this.signUpText = "Log in";
         });
     },
   },

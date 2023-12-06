@@ -7,9 +7,20 @@ const vuexLocal = new VuexPersistence({
 })
 export default new Vuex.Store({
   state: {
-    userName: "dsssss",
+    userName: "",
+    userId: "",
+    chatDetails: {}
   },
   mutations: {
+    setUserName(state, val) {
+      state.userName = val;
+    },
+    setUserId(state, val) {
+      state.userId = val;
+    },
+    setChatDetails(state, val) {
+      state.chatDetails = val;
+    }
   },
   plugins: [vuexLocal.plugin]
 })

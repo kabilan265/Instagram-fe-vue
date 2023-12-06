@@ -1,19 +1,34 @@
 <template>
   <Loader v-if="enableSpinner" />
-  <UploadPhoto />
-  <Navbar :profile-pic="profile.profilePic" @callUploadPhoto="uploadPhoto()" />
+  <UploadPhoto v-if="uploadModal" @close="closeModal" @upload="uploadPhoto" />
+  <Navbar
+    :profile-pic="profile.profilePic"
+    @callUploadPhoto="uploadPhoto()"
+    v-if="authorized"
+  />
+  <div
+    v-if="uploadModal"
+    class="overlay fixed top-0 left-0 z-10 w-full h-full"
+    @click="closeModal()"
+  ></div>
   <div class="mb-20 md:mb-2 md:ml-[100px] lg:ml-[250px] md:pt-5">
-    <div class="mx-auto max-w-[850px] md:p-4 lg:p-0">
+    <div class="mx-auto max-w-[850px] md:p-4 lg:p-0" v-if="authorized">
       <div class="m-4">
-        <header
-          class="grid profile-header gap-8 mb-6 md:grid-cols-[0.2fr 0.8fr]"
-        >
-          <div>
+        <header class="grid profile-header gap-8 md:gap-20">
+          <div class="relative">
             <img
               :src="profile.profilePic"
+              :class="{ 'opacity-70': profilePicSpinner }"
               alt=""
               class="rounded-full object-contain cursor-pointer"
-              @click="uploadPhoto('profilePic')"
+              @click="openModal()"
+              @load="imgLoaded()"
+            />
+            <VueSpinnerIos
+              v-if="profilePicSpinner"
+              class="absolute top-1/2 -translate-y-1/2 left-1/2 -transalte-x-1/2"
+              size="20"
+              color="black"
             />
           </div>
           <div class="">
@@ -58,7 +73,7 @@
             </section>
           </div>
         </header>
-        <section class="md:hidden">
+        <section class="md:hidden mt-5">
           <h2 class="mb-2 font-semibold text-xs">{{ profile.userName }}</h2>
           <p class="text-md opacity-95">{{ profile.bio }}</p>
         </section>
@@ -86,20 +101,28 @@
           class="py-3 pl-3 flex-grow text-center md:flex md:items-center md:flex-grow-0 md:gap-2"
           style="box-shadow: 0 1px 0 #000 inset"
         >
-          <ion-icon name="apps" class="fill-blue-primary"></ion-icon
-          ><span class="hidden md:block text-xs text-blue-primary">POSTS</span>
+          <ion-icon name="apps" class="fill-black"></ion-icon
+          ><span
+            class="hidden md:block text-xs text-black font-semibold"
+            style="letter-spacing: 1px"
+            >POSTS</span
+          >
         </div>
         <div
           class="flex-grow py-3 text-center md:flex md:flex-grow-0 md:items-center md:gap-2"
         >
           <ion-icon name="bookmark" class="text-[rgb(142, 142, 142)]"></ion-icon
-          ><span class="hidden md:block text-xs">SAVED</span>
+          ><span class="hidden md:block text-xs" style="letter-spacing: 1px"
+            >SAVED</span
+          >
         </div>
         <div
           class="flex-grow text-center pr-3 py-3 md:flex md:flex-grow-0 md:items-center md:gap-2"
         >
           <ion-icon name="person"></ion-icon
-          ><span class="hidden md:block text-xs">TAGGED</span>
+          ><span class="hidden md:block text-xs" style="letter-spacing: 1px"
+            >TAGGED</span
+          >
         </div>
       </section>
       <section class="photos">
@@ -109,10 +132,18 @@
               :src="photo"
               alt=""
               class="w-full object-cover cursor-pointer"
+              @load="imgLoaded()"
             />
           </div>
         </div>
+        <div class="p-10 md:py-20 text-center" v-if="!profile.photos?.length">
+          <ion-icon name="camera" class="mx-auto text-[70px]"></ion-icon>
+          <span class="text-xl font-bold block mt-3">No posts yet</span>
+        </div>
       </section>
+    </div>
+    <div v-else class="ml-6">
+      <PageNotFound />
     </div>
   </div>
 </template>
