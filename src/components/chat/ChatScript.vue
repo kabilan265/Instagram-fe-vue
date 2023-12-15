@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     goToInbox() {
-      this.$router.push("/inbox");
+      this.$router.push("/direct/inbox");
     },
     getData() {
       appServices

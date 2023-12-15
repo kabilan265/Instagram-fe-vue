@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto max-w-[350px] p-2">
     <div class="p-10 md:mt-6 form-wrap">
-      <img src="../../assets/instalogin.png" class="w-[150px] mx-auto" />
+      <img src="../../assets/instalogin1.png" class="w-[150px] mx-auto" />
       <form class="mt-8 flex flex-col gap-4">
         <label for="username" class="relative cursor-text rounded">
           <span

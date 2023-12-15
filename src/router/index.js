@@ -15,12 +15,17 @@ const routes = [
   },
   {
     name: 'inbox',
-    path: '/inbox',
+    path: '/direct/inbox',
     component: () => import('../components/inbox/Inbox.vue')
   },
   {
+    name: 'new-chat',
+    path: '/direct/new',
+    component: () => import('../components/new-chat/NewChat.vue')
+  },
+  {
     name: 'chat',
-    path: '/inbox/:id',
+    path: '/direct/inbox/:id',
     component: () => import('../components/chat/Chat.vue')
   },
   {
@@ -28,7 +33,7 @@ const routes = [
     path: '/:userName',
     component: () => import('../components/profile/Profile.vue')
   },
-  
+
   {
     path: '/',
     redirect: '/login'

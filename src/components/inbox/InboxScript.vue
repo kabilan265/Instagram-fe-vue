@@ -6,6 +6,7 @@ export default {
       chats: [],
       userName: this.$store.state.userName,
       isSkelton: true,
+      imgCount: 0,
     };
   },
   computed() {},
@@ -24,8 +25,7 @@ export default {
       });
       return user.userName;
     },
-    getUserPic(chat)
-    {
+    getUserPic(chat) {
       if (chat.isGroupChat) {
         return "https://firebasestorage.googleapis.com/v0/b/instagram-clone-9f45e.appspot.com/o/default%2FNoPic.jpg?alt=media";
       }
@@ -58,27 +58,35 @@ export default {
       this.$store.commit("setChatDetails", chatDetails);
       console.log(this.$socket);
       this.$socket.emit("joinChat", chatId);
-      this.$router.push(`/inbox/${chatId}`);
+      this.$router.push(`/direct/inbox/${chatId}`);
     },
     getData() {
       appServices
         .fetchChats()
         .then((res) => {
           this.chats = res.data;
-          this.isSkelton = false;
+          if (!this.chats.length) {
+            this.isSkelton = false;
+          }
           /* this.chats = data.map((d)=>{
             if()
           }) */
         })
         .catch((err) => {});
     },
+    isImgLoaded() {
+      this.imgCount++;
+      if (this.imgCount === this.chats.length) {
+        this.isSkelton = false;
+      }
+    },
+    createChat() {
+      this.$router.push("/direct/new");
+    },
   },
 
   mounted() {
     this.getData();
-    console.log(this.$store.state.userName);
-    this.$store.commit("updateUserName");
-    console.log(this.$store.state.userName);
   },
 };
 </script>

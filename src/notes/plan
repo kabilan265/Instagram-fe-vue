@@ -1,10 +1,4 @@
-
-view pic
-spinner - form , profile pic
-edit profile
-logout
-
-
-mvp2
-chat system
-skelton must for inbox page
+skelton - profile card
+create chat if not exists
+view profile skelton in chat
+view profile func

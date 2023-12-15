@@ -11,7 +11,7 @@
     class="overlay fixed top-0 left-0 z-10 w-full h-full"
     @click="closeModal()"
   ></div>
-  <div class="mb-20 md:mb-2 md:ml-[100px] lg:ml-[250px] md:pt-5">
+  <div class="mb-20 md:mb-2 md:ml-[100px] lg:ml-[250px] md:pt-5 pb-20">
     <div class="mx-auto max-w-[850px] md:p-4 lg:p-0" v-if="authorized">
       <div class="m-4">
         <header class="grid profile-header gap-8 md:gap-20">
@@ -126,19 +126,32 @@
         </div>
       </section>
       <section class="photos">
-        <div class="gallery grid grid-cols-3 gap-[2px]">
-          <div v-for="(photo, index) in profile.photos" :key="index">
+        <div class="gallery grid grid-cols-3 gap-[2px] w-full">
+          <div v-for="(photo, index) in profile.photos" :key="index" class="photo-div">
             <img
-              :src="photo"
-              alt=""
-              class="w-full object-cover cursor-pointer"
+              :data-src="photo"
+              src=""
+              alt=" "
+              class="w-full object-cover cursor-pointer skelton md:h-[250px] h-[100px] sm:h-[200px]"
               @load="imgLoaded()"
             />
           </div>
         </div>
-        <div class="p-10 md:py-20 text-center" v-if="!profile.photos?.length">
+        <div
+          class="p-10 md:py-20 text-center flex flex-col items-center gap-2"
+          v-if="!profile.photos?.length"
+        >
           <ion-icon name="camera" class="mx-auto text-[70px]"></ion-icon>
-          <span class="text-xl font-bold block mt-3">No posts yet</span>
+          <span class="text-xl font-bold block mt-3">Share photos</span>
+          <p class="text-black font-normal">
+            When you share photos, they will appear on your profile.
+          </p>
+          <a
+            href="#"
+            class="text-blue-primary font-medium ml-2 mt-3 text-lg"
+            @click.prevent="uploadPhoto('timeline')"
+            >Share your first photo</a
+          >
         </div>
       </section>
     </div>

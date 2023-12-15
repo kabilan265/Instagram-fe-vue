@@ -116,6 +116,7 @@ export default {
         .registerUser(this.details)
         .then((res) => {
           sessionStorage.setItem("token", res.data.token);
+          this.$store.commit("setUserName", this.details.userName);
           this.$router.push(`/${this.details.userName}`);
         })
         .catch((err) => {
